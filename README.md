@@ -1,0 +1,1 @@
+# LetvMST6M60WriteProperties
