@@ -300,7 +300,7 @@ Private Sub CommandLock_Click()
             Exit For
         End If
     Next i
-    For i = 0 To 1
+    For i = 0 To 2
         If Trim(ComboBurningMode.Text) = Trim(arrBurningMode(i)) Then
             clsSaveConfigData.BurningMode = i
             gintBurningMode = i
@@ -351,6 +351,10 @@ On Error GoTo ErrExit
     SetProperty 4, gintHardwareVersion + 1
     SetProperty 5, gint2D3DModel + 1
     SetProperty 6, gintPanelModel + 1
+    If gintBurningModeEnable = 1 Then
+        BurningMode gintBurningMode
+    End If
+    DelayMS 2000
     Exit Sub
 
 ErrExit:
@@ -377,7 +381,7 @@ Private Sub Form_Load()
     arrPanelModel = Array("X4_70_2D", "X4_70_3D", "X3_55_120", _
                             "X3_55_60", "X4_65_Curve", "X4_55_Blade", _
                             "X4_70S", "X4_75S")
-    arrBurningMode = Array("White", "Color Bar")
+    arrBurningMode = Array("White Pattern", "Color Bar", "Color Square")
 
     For i = 0 To 10
         ComboProduct.AddItem arrProductModel(i)
@@ -397,7 +401,7 @@ Private Sub Form_Load()
     For i = 0 To 7
         ComboPanel.AddItem arrPanelModel(i)
     Next i
-    For i = 0 To 1
+    For i = 0 To 2
         ComboBurningMode.AddItem arrBurningMode(i)
     Next i
     
