@@ -341,12 +341,20 @@ Private Sub CommandUnlock_Click()
 End Sub
 
 Private Sub CommandWrite_Click()
+On Error GoTo ErrExit
+    If MSComm1.PortOpen = False Then
+        MSComm1.PortOpen = True
+    End If
     SetProperty 1, gintProductModel
     SetProperty 2, gintBacklightType + 1
     SetProperty 3, gintBoardModel + 1
     SetProperty 4, gintHardwareVersion + 1
     SetProperty 5, gint2D3DModel + 1
     SetProperty 6, gintPanelModel + 1
+    Exit Sub
+
+ErrExit:
+    MsgBox Err.Description, vbCritical, Err.Source
 End Sub
 
 Private Sub Form_Load()
@@ -394,6 +402,19 @@ Private Sub Form_Load()
     Next i
     
     SubInit
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+On Error GoTo ErrExit
+    If MSComm1.PortOpen = True Then
+        MSComm1.PortOpen = False
+    End If
+
+    End
+Exit Sub
+
+ErrExit:
+    MsgBox Err.Description, vbCritical, Err.Source
 End Sub
 
 Private Sub MenuItemComSetting_Click()
