@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-	<common baud="115200" id="1"/>
+	<common baud="115200" id="6"/>
 	<MonitorProductModel>10</MonitorProductModel>
-	<MonitorBacklightType>0</MonitorBacklightType>
-	<MonitorBoardModel>0</MonitorBoardModel>
-	<MonitorHardwareVersion>0</MonitorHardwareVersion>
-	<Monitor2D3DModel>0</Monitor2D3DModel>
-	<MonitorPanelModel>5</MonitorPanelModel>
-	<BurningMode enable="True">0</BurningMode>
+	<MonitorBacklightType>1</MonitorBacklightType>
+	<MonitorBoardModel>1</MonitorBoardModel>
+	<MonitorHardwareVersion>1</MonitorHardwareVersion>
+	<Monitor2D3DModel>1</Monitor2D3DModel>
+	<MonitorPanelModel>6</MonitorPanelModel>
+	<BurningMode enable="True">1</BurningMode>
 </config>

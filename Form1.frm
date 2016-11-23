@@ -227,6 +227,30 @@ Private Sub SubInit()
     gintBurningModeEnable = clsConfigData.EnableBurningMode
 
     Set clsConfigData = Nothing
+    
+    If gintBacklightType < 1 Then
+        gintBacklightType = 1
+    End If
+    If gintBoardModel < 1 Then
+        gintBoardModel = 1
+    End If
+    If gintHardwareVersion < 1 Then
+        gintHardwareVersion = 1
+    End If
+    If gint2D3DModel < 1 Then
+        gint2D3DModel = 1
+    End If
+    If gintPanelModel < 1 Then
+        gintPanelModel = 1
+    End If
+    ComboProduct.Text = arrProductModel(gintProductModel)
+    ComboBacklight.Text = arrBacklightType(gintBacklightType - 1)
+    ComboBoard.Text = arrBoradModel(gintBoardModel - 1)
+    ComboHwVer.Text = arrHwVer(gintHardwareVersion - 1)
+    Combo2D3D.Text = arrDimension(gint2D3DModel - 1)
+    ComboPanel.Text = arrPanelModel(gintPanelModel - 1)
+    ComboBurningMode.Text = arrBurningMode(gintBurningMode)
+    CheckBurningMode.Value = gintBurningModeEnable
 End Sub
 
 Public Sub SubInitComPort()
@@ -298,36 +322,36 @@ On Error GoTo ErrExit
     Next i
     For i = 0 To 1
         If Trim(ComboBacklight.Text) = Trim(arrBacklightType(i)) Then
-            clsSaveConfigData.BacklightType = i
-            gintBacklightType = i
+            clsSaveConfigData.BacklightType = i + 1
+            gintBacklightType = i + 1
             Exit For
         End If
     Next i
     For i = 0 To 7
         If Trim(ComboBoard.Text) = Trim(arrBoradModel(i)) Then
-            clsSaveConfigData.BoardModel = i
-            gintBoardModel = i
+            clsSaveConfigData.BoardModel = i + 1
+            gintBoardModel = i + 1
             Exit For
         End If
     Next i
     For i = 0 To 4
         If Trim(ComboHwVer.Text) = Trim(arrHwVer(i)) Then
-            clsSaveConfigData.HardwareVersion = i
-            gintHardwareVersion = i
+            clsSaveConfigData.HardwareVersion = i + 1
+            gintHardwareVersion = i + 1
             Exit For
         End If
     Next i
     For i = 0 To 1
         If Trim(Combo2D3D.Text) = Trim(arrDimension(i)) Then
-            clsSaveConfigData.Dimension = i
-            gint2D3DModel = i
+            clsSaveConfigData.Dimension = i + 1
+            gint2D3DModel = i + 1
             Exit For
         End If
     Next i
     For i = 0 To 7
         If Trim(ComboPanel.Text) = Trim(arrPanelModel(i)) Then
-            clsSaveConfigData.PanelModel = i
-            gintPanelModel = i
+            clsSaveConfigData.PanelModel = i + 1
+            gintPanelModel = i + 1
             Exit For
         End If
     Next i
@@ -348,11 +372,11 @@ On Error GoTo ErrExit
         MSComm1.PortOpen = True
     End If
     SetProperty 1, gintProductModel
-    SetProperty 2, gintBacklightType + 1
-    SetProperty 3, gintBoardModel + 1
-    SetProperty 4, gintHardwareVersion + 1
-    SetProperty 5, gint2D3DModel + 1
-    SetProperty 6, gintPanelModel + 1
+    SetProperty 2, gintBacklightType
+    SetProperty 3, gintBoardModel
+    SetProperty 4, gintHardwareVersion
+    SetProperty 5, gint2D3DModel
+    SetProperty 6, gintPanelModel
     If gintBurningModeEnable = 1 Then
         BurningMode gintBurningMode
     End If
@@ -408,15 +432,6 @@ Private Sub Form_Load()
     Next i
     
     SubInit
-    
-    ComboProduct.Text = arrProductModel(gintProductModel)
-    ComboBacklight.Text = arrBacklightType(gintBacklightType)
-    ComboBoard.Text = arrBoradModel(gintBoardModel)
-    ComboHwVer.Text = arrHwVer(gintHardwareVersion)
-    Combo2D3D.Text = arrDimension(gint2D3DModel)
-    ComboPanel.Text = arrPanelModel(gintPanelModel)
-    ComboBurningMode.Text = arrBurningMode(gintBurningMode)
-    CheckBurningMode.Value = gintBurningModeEnable
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
