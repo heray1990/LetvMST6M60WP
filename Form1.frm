@@ -2,13 +2,13 @@ VERSION 5.00
 Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "MSCOMM32.OCX"
 Begin VB.Form Form1 
    Caption         =   "Letv Max65  Ù–‘…’¬ºπ§æﬂ"
-   ClientHeight    =   4815
+   ClientHeight    =   5175
    ClientLeft      =   165
    ClientTop       =   555
    ClientWidth     =   3990
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   4815
+   ScaleHeight     =   5175
    ScaleWidth      =   3990
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton CommandUnlock 
@@ -184,6 +184,26 @@ Begin VB.Form Form1
       _ExtentY        =   1005
       _Version        =   393216
       DTREnable       =   -1  'True
+   End
+   Begin VB.Label lblVersion 
+      Alignment       =   1  'Right Justify
+      AutoSize        =   -1  'True
+      Caption         =   "Version "
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00404040&
+      Height          =   240
+      Left            =   3105
+      TabIndex        =   19
+      Top             =   4800
+      Width           =   720
    End
    Begin VB.Menu MenuItemSetting 
       Caption         =   "Setting"
@@ -390,6 +410,7 @@ End Sub
 Private Sub Form_Load()
     Dim i As Integer
 
+    lblVersion.Caption = "Version " & App.Major & "." & App.Minor & "." & App.Revision
     CommandLock.Enabled = True
     CommandUnlock.Enabled = False
     CommandWrite.Enabled = False
@@ -405,7 +426,7 @@ Private Sub Form_Load()
     arrHwVer = Array("H1000", "H2000", "H3000", "H5000", "H6000")
     arrDimension = Array("2D", "3D")
     arrPanelModel = Array("X4_70_2D", "X4_70_3D", "X3_55_120", _
-                            "X3_55_60", "X4_65_Curve", "X4_55_Blade", _
+                            "X3_55_60", "X4_65_Curve", "X4_65_Blade", _
                             "X4_70S", "X4_75S")
     arrBurningMode = Array("White Pattern", "Color Bar", "Color Square")
 
