@@ -121,20 +121,11 @@ Private Sub cmdExit_Click()
 End Sub
 
 Private Sub cmdSet_Click()
-    Dim clsSaveConfigData As ProjectConfig
-    
-    Set clsSaveConfigData = New ProjectConfig
-
-    clsSaveConfigData.ComBaud = cmbComBaud.Text
-    clsSaveConfigData.ComID = Val(Replace(cmbComID.Text, "COM", ""))
-    
-    clsSaveConfigData.SaveConfigData
-    
-    Set clsSaveConfigData = Nothing
+    gintTVComID = Val(Replace(cmbComID.Text, "COM", ""))
+    glngTVComBaud = Val(cmbComBaud.Text)
 
     Unload Me
-    
-    Form1.SubInit
+    Form1.SubInitComPort
     Form1.Show
 End Sub
 

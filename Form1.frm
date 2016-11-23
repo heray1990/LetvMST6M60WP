@@ -207,7 +207,7 @@ Dim arrDimension
 Dim arrPanelModel
 Dim arrBurningMode
 
-Public Sub SubInit()
+Private Sub SubInit()
     Dim clsConfigData As ProjectConfig
 
     Set clsConfigData = New ProjectConfig
@@ -216,20 +216,20 @@ Public Sub SubInit()
     glngTVComBaud = clsConfigData.ComBaud
     gintTVComID = clsConfigData.ComID
     SubInitComPort
-    
-    ComboProduct.Text = arrProductModel(clsConfigData.ProductModel)
-    ComboBacklight.Text = arrBacklightType(clsConfigData.BacklightType)
-    ComboBoard.Text = arrBoradModel(clsConfigData.BoardModel)
-    ComboHwVer.Text = arrHwVer(clsConfigData.HardwareVersion)
-    Combo2D3D.Text = arrDimension(clsConfigData.Dimension)
-    ComboPanel.Text = arrPanelModel(clsConfigData.PanelModel)
-    CheckBurningMode.Value = clsConfigData.EnableBurningMode
-    ComboBurningMode.Text = arrBurningMode(clsConfigData.BurningMode)
+
+    gintProductModel = clsConfigData.ProductModel
+    gintBacklightType = clsConfigData.BacklightType
+    gintBoardModel = clsConfigData.BoardModel
+    gintHardwareVersion = clsConfigData.HardwareVersion
+    gint2D3DModel = clsConfigData.Dimension
+    gintPanelModel = clsConfigData.PanelModel
+    gintBurningMode = clsConfigData.BurningMode
+    gintBurningModeEnable = clsConfigData.EnableBurningMode
 
     Set clsConfigData = Nothing
 End Sub
 
-Private Sub SubInitComPort()
+Public Sub SubInitComPort()
     If MSComm1.PortOpen = True Then
         MSComm1.PortOpen = False
     End If
@@ -253,11 +253,42 @@ Private Sub SubInitComPort()
 End Sub
 
 Private Sub CommandLock_Click()
+    ComboProduct.Enabled = False
+    ComboBacklight.Enabled = False
+    ComboBoard.Enabled = False
+    ComboHwVer.Enabled = False
+    Combo2D3D.Enabled = False
+    ComboPanel.Enabled = False
+    CheckBurningMode.Enabled = False
+    ComboBurningMode.Enabled = False
+    CommandLock.Enabled = False
+    CommandUnlock.Enabled = True
+    CommandWrite.Enabled = True
+End Sub
+
+Private Sub CommandUnlock_Click()
+    ComboProduct.Enabled = True
+    ComboBacklight.Enabled = True
+    ComboBoard.Enabled = True
+    ComboHwVer.Enabled = True
+    Combo2D3D.Enabled = True
+    ComboPanel.Enabled = True
+    CheckBurningMode.Enabled = True
+    ComboBurningMode.Enabled = True
+    CommandLock.Enabled = True
+    CommandUnlock.Enabled = False
+    CommandWrite.Enabled = False
+End Sub
+
+Private Sub CommandWrite_Click()
+On Error GoTo ErrExit
     Dim i As Integer
     Dim clsSaveConfigData As ProjectConfig
     
     Set clsSaveConfigData = New ProjectConfig
 
+    clsSaveConfigData.ComBaud = CStr(glngTVComBaud)
+    clsSaveConfigData.ComID = gintTVComID
     For i = 0 To 10
         If Trim(ComboProduct.Text) = Trim(arrProductModel(i)) Then
             clsSaveConfigData.ProductModel = i
@@ -313,35 +344,6 @@ Private Sub CommandLock_Click()
     clsSaveConfigData.SaveConfigData
     Set clsSaveConfigData = Nothing
 
-    ComboProduct.Enabled = False
-    ComboBacklight.Enabled = False
-    ComboBoard.Enabled = False
-    ComboHwVer.Enabled = False
-    Combo2D3D.Enabled = False
-    ComboPanel.Enabled = False
-    CheckBurningMode.Enabled = False
-    ComboBurningMode.Enabled = False
-    CommandLock.Enabled = False
-    CommandUnlock.Enabled = True
-    CommandWrite.Enabled = True
-End Sub
-
-Private Sub CommandUnlock_Click()
-    ComboProduct.Enabled = True
-    ComboBacklight.Enabled = True
-    ComboBoard.Enabled = True
-    ComboHwVer.Enabled = True
-    Combo2D3D.Enabled = True
-    ComboPanel.Enabled = True
-    CheckBurningMode.Enabled = True
-    ComboBurningMode.Enabled = True
-    CommandLock.Enabled = True
-    CommandUnlock.Enabled = False
-    CommandWrite.Enabled = False
-End Sub
-
-Private Sub CommandWrite_Click()
-On Error GoTo ErrExit
     If MSComm1.PortOpen = False Then
         MSComm1.PortOpen = True
     End If
@@ -406,6 +408,15 @@ Private Sub Form_Load()
     Next i
     
     SubInit
+    
+    ComboProduct.Text = arrProductModel(gintProductModel)
+    ComboBacklight.Text = arrBacklightType(gintBacklightType)
+    ComboBoard.Text = arrBoradModel(gintBoardModel)
+    ComboHwVer.Text = arrHwVer(gintHardwareVersion)
+    Combo2D3D.Text = arrDimension(gint2D3DModel)
+    ComboPanel.Text = arrPanelModel(gintPanelModel)
+    ComboBurningMode.Text = arrBurningMode(gintBurningMode)
+    CheckBurningMode.Value = gintBurningModeEnable
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)

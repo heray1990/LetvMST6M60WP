@@ -3,7 +3,6 @@ Option Explicit
 
 Public gintTVComID As Integer
 Public glngTVComBaud As Long
-
 Public gintProductModel As Integer
 Public gintBacklightType As Integer
 Public gintBoardModel As Integer
