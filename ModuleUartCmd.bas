@@ -80,21 +80,40 @@ Public Sub SetProperty(intProperty As Integer, intVal As Integer)
     SendCmd
 End Sub
 
-Public Sub BurningMode(intBurningMode As Integer)
-    'E0 0B 40 X7 0F 01 XX 00 00 00 CHK
+Public Sub BurningMode(intOnOff As Integer)
+    'E0 0B 40 XD 10 XX 00 00 00 00 CHK
     mSendDataBuf(0) = &HE0
     mSendDataBuf(1) = &HB
     mSendDataBuf(2) = &H40
-    mSendDataBuf(4) = &HF
-    mSendDataBuf(5) = &H1
-    mSendDataBuf(6) = intBurningMode
+    mSendDataBuf(4) = &H10
+    mSendDataBuf(5) = intOnOff
+    mSendDataBuf(6) = &H0
     mSendDataBuf(7) = &H0
     mSendDataBuf(8) = &H0
     mSendDataBuf(9) = &H0
 
     DataToDDC
-    mSendDataBuf(3) = CalDDCChkSum(mDDCDataWithoutChksum) * 16 + &H7
+    mSendDataBuf(3) = CalDDCChkSum(mDDCDataWithoutChksum) * 16 + &HD
     mSendDataBuf(10) = CalChkSum(mSendDataBuf)
+
+    SaveCmdToLog mSendDataBuf
+
+    SendCmd
+End Sub
+
+Public Sub RebootMonitor()
+    'E0 0B 40 2D 12 00 00 00 00 00 95
+    mSendDataBuf(0) = &HE0
+    mSendDataBuf(1) = &HB
+    mSendDataBuf(2) = &H40
+    mSendDataBuf(3) = &H2D
+    mSendDataBuf(4) = &H12
+    mSendDataBuf(5) = &H0
+    mSendDataBuf(6) = &H0
+    mSendDataBuf(7) = &H0
+    mSendDataBuf(8) = &H0
+    mSendDataBuf(9) = &H0
+    mSendDataBuf(10) = &H95
 
     SaveCmdToLog mSendDataBuf
 

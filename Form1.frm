@@ -15,7 +15,7 @@ Begin VB.Form Form1
       Caption         =   "解锁"
       Height          =   375
       Left            =   1440
-      TabIndex        =   18
+      TabIndex        =   17
       Top             =   4320
       Width           =   1095
    End
@@ -23,7 +23,7 @@ Begin VB.Form Form1
       Caption         =   "烧录"
       Height          =   375
       Left            =   2760
-      TabIndex        =   17
+      TabIndex        =   16
       Top             =   4320
       Width           =   1095
    End
@@ -31,7 +31,7 @@ Begin VB.Form Form1
       Caption         =   "锁定"
       Height          =   375
       Left            =   120
-      TabIndex        =   16
+      TabIndex        =   15
       Top             =   4320
       Width           =   1095
    End
@@ -42,16 +42,6 @@ Begin VB.Form Form1
       TabIndex        =   13
       Top             =   3360
       Width           =   3735
-      Begin VB.ComboBox ComboBurningMode 
-         Height          =   315
-         ItemData        =   "Form1.frx":0000
-         Left            =   1560
-         List            =   "Form1.frx":0002
-         TabIndex        =   15
-         Text            =   "Color Bar"
-         Top             =   300
-         Width           =   2000
-      End
       Begin VB.CheckBox CheckBurningMode 
          Caption         =   "老化模式"
          Height          =   255
@@ -70,9 +60,9 @@ Begin VB.Form Form1
       Width           =   3735
       Begin VB.ComboBox ComboPanel 
          Height          =   315
-         ItemData        =   "Form1.frx":0004
+         ItemData        =   "Form1.frx":0000
          Left            =   1560
-         List            =   "Form1.frx":0006
+         List            =   "Form1.frx":0002
          TabIndex        =   12
          Text            =   "Panel Model"
          Top             =   2620
@@ -80,9 +70,9 @@ Begin VB.Form Form1
       End
       Begin VB.ComboBox Combo2D3D 
          Height          =   315
-         ItemData        =   "Form1.frx":0008
+         ItemData        =   "Form1.frx":0004
          Left            =   1560
-         List            =   "Form1.frx":000A
+         List            =   "Form1.frx":0006
          TabIndex        =   11
          Text            =   "2D/3D"
          Top             =   2160
@@ -90,9 +80,9 @@ Begin VB.Form Form1
       End
       Begin VB.ComboBox ComboHwVer 
          Height          =   315
-         ItemData        =   "Form1.frx":000C
+         ItemData        =   "Form1.frx":0008
          Left            =   1560
-         List            =   "Form1.frx":000E
+         List            =   "Form1.frx":000A
          TabIndex        =   10
          Text            =   "Hardware Version"
          Top             =   1680
@@ -100,9 +90,9 @@ Begin VB.Form Form1
       End
       Begin VB.ComboBox ComboBoard 
          Height          =   315
-         ItemData        =   "Form1.frx":0010
+         ItemData        =   "Form1.frx":000C
          Left            =   1560
-         List            =   "Form1.frx":0012
+         List            =   "Form1.frx":000E
          TabIndex        =   9
          Text            =   "Board Model"
          Top             =   1240
@@ -110,9 +100,9 @@ Begin VB.Form Form1
       End
       Begin VB.ComboBox ComboBacklight 
          Height          =   315
-         ItemData        =   "Form1.frx":0014
+         ItemData        =   "Form1.frx":0010
          Left            =   1560
-         List            =   "Form1.frx":0016
+         List            =   "Form1.frx":0012
          TabIndex        =   8
          Text            =   "Backlight Type"
          Top             =   780
@@ -120,9 +110,9 @@ Begin VB.Form Form1
       End
       Begin VB.ComboBox ComboProduct 
          Height          =   315
-         ItemData        =   "Form1.frx":0018
+         ItemData        =   "Form1.frx":0014
          Left            =   1560
-         List            =   "Form1.frx":001A
+         List            =   "Form1.frx":0016
          TabIndex        =   7
          Text            =   "Product Model"
          Top             =   320
@@ -201,7 +191,7 @@ Begin VB.Form Form1
       ForeColor       =   &H00404040&
       Height          =   240
       Left            =   3105
-      TabIndex        =   19
+      TabIndex        =   18
       Top             =   4800
       Width           =   720
    End
@@ -243,7 +233,6 @@ Private Sub SubInit()
     gintHardwareVersion = clsConfigData.HardwareVersion
     gint2D3DModel = clsConfigData.Dimension
     gintPanelModel = clsConfigData.PanelModel
-    gintBurningMode = clsConfigData.BurningMode
     gintBurningModeEnable = clsConfigData.EnableBurningMode
 
     Set clsConfigData = Nothing
@@ -269,7 +258,6 @@ Private Sub SubInit()
     ComboHwVer.Text = arrHwVer(gintHardwareVersion - 1)
     Combo2D3D.Text = arrDimension(gint2D3DModel - 1)
     ComboPanel.Text = arrPanelModel(gintPanelModel - 1)
-    ComboBurningMode.Text = arrBurningMode(gintBurningMode)
     CheckBurningMode.Value = gintBurningModeEnable
 End Sub
 
@@ -304,7 +292,6 @@ Private Sub CommandLock_Click()
     Combo2D3D.Enabled = False
     ComboPanel.Enabled = False
     CheckBurningMode.Enabled = False
-    ComboBurningMode.Enabled = False
     CommandLock.Enabled = False
     CommandUnlock.Enabled = True
     CommandWrite.Enabled = True
@@ -318,7 +305,6 @@ Private Sub CommandUnlock_Click()
     Combo2D3D.Enabled = True
     ComboPanel.Enabled = True
     CheckBurningMode.Enabled = True
-    ComboBurningMode.Enabled = True
     CommandLock.Enabled = True
     CommandUnlock.Enabled = False
     CommandWrite.Enabled = False
@@ -375,13 +361,6 @@ On Error GoTo ErrExit
             Exit For
         End If
     Next i
-    For i = 0 To 2
-        If Trim(ComboBurningMode.Text) = Trim(arrBurningMode(i)) Then
-            clsSaveConfigData.BurningMode = i
-            gintBurningMode = i
-            Exit For
-        End If
-    Next i
     clsSaveConfigData.EnableBurningMode = CheckBurningMode.Value
     gintBurningModeEnable = CheckBurningMode.Value
 
@@ -398,7 +377,8 @@ On Error GoTo ErrExit
     SetProperty 5, gint2D3DModel
     SetProperty 6, gintPanelModel
     If gintBurningModeEnable = 1 Then
-        BurningMode gintBurningMode
+        BurningMode 1
+        RebootMonitor
     End If
     DelayMS 2000
     Exit Sub
@@ -447,9 +427,6 @@ Private Sub Form_Load()
     Next i
     For i = 0 To 7
         ComboPanel.AddItem arrPanelModel(i)
-    Next i
-    For i = 0 To 2
-        ComboBurningMode.AddItem arrBurningMode(i)
     Next i
     
     SubInit

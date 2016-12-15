@@ -7,5 +7,5 @@
 	<MonitorHardwareVersion>1</MonitorHardwareVersion>
 	<Monitor2D3DModel>1</Monitor2D3DModel>
 	<MonitorPanelModel>6</MonitorPanelModel>
-	<BurningMode enable="True">1</BurningMode>
+	<BurningMode enable="True"></BurningMode>
 </config>

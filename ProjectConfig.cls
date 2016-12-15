@@ -29,7 +29,6 @@ Private Type udtConfigData
     intHardwareVersion As Integer
     int2D3DModel As Integer
     intPanelModel As Integer
-    intBurningMode As Integer
     intBurningModeEnable As Integer
 End Type
 
@@ -46,8 +45,7 @@ Private Sub Class_Initialize()
     mConfigData.intHardwareVersion = 1
     mConfigData.int2D3DModel = 1
     mConfigData.intPanelModel = 1
-    mConfigData.intBurningMode = 1
-    mConfigData.intBurningModeEnable = 0
+    mConfigData.intBurningModeEnable = 1
 End Sub
 
 Public Sub LoadConfigData()
@@ -72,7 +70,6 @@ Public Sub LoadConfigData()
         mConfigData.intHardwareVersion = Val(xmlDoc.selectSingleNode("/config/MonitorHardwareVersion").Text)
         mConfigData.int2D3DModel = Val(xmlDoc.selectSingleNode("/config/Monitor2D3DModel").Text)
         mConfigData.intPanelModel = Val(xmlDoc.selectSingleNode("/config/MonitorPanelModel").Text)
-        mConfigData.intBurningMode = Val(xmlDoc.selectSingleNode("/config/BurningMode").Text)
 
         If xmlDoc.selectSingleNode("/config/BurningMode").selectSingleNode("@enable").Text = "True" Then
             mConfigData.intBurningModeEnable = 1
@@ -99,7 +96,6 @@ Public Sub SaveConfigData()
         xmlDoc.selectSingleNode("/config/MonitorHardwareVersion").Text = CStr(mConfigData.intHardwareVersion)
         xmlDoc.selectSingleNode("/config/Monitor2D3DModel").Text = CStr(mConfigData.int2D3DModel)
         xmlDoc.selectSingleNode("/config/MonitorPanelModel").Text = CStr(mConfigData.intPanelModel)
-        xmlDoc.selectSingleNode("/config/BurningMode").Text = CStr(mConfigData.intBurningMode)
         
         If mConfigData.intBurningModeEnable = 1 Then
             xmlDoc.selectSingleNode("/config/BurningMode").selectSingleNode("@enable").Text = "True"
@@ -173,14 +169,6 @@ End Property
 
 Public Property Let PanelModel(intPanelModel As Integer)
     mConfigData.intPanelModel = intPanelModel
-End Property
-
-Public Property Get BurningMode() As Integer
-    BurningMode = mConfigData.intBurningMode
-End Property
-
-Public Property Let BurningMode(intBurningMode As Integer)
-    mConfigData.intBurningMode = intBurningMode
 End Property
 
 Public Property Get EnableBurningMode() As Integer

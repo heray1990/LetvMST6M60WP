@@ -9,5 +9,4 @@ Public gintBoardModel As Integer
 Public gintHardwareVersion As Integer
 Public gint2D3DModel As Integer
 Public gintPanelModel As Integer
-Public gintBurningMode As Integer
 Public gintBurningModeEnable As Integer
