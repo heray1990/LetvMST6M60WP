@@ -354,7 +354,7 @@ On Error GoTo ErrExit
             Exit For
         End If
     Next i
-    For i = 0 To 7
+    For i = 0 To 9
         If Trim(ComboPanel.Text) = Trim(arrPanelModel(i)) Then
             clsSaveConfigData.PanelModel = i + 1
             gintPanelModel = i + 1
@@ -406,8 +406,8 @@ Private Sub Form_Load()
     arrHwVer = Array("H1000", "H2000", "H3000", "H5000", "H6000")
     arrDimension = Array("2D", "3D")
     arrPanelModel = Array("X4_70_2D", "X4_70_3D", "X3_55_120", _
-                            "X3_55_60", "X4_65_Curve", "X4_65_Blade", _
-                            "X4_70S", "X4_75S")
+                            "X3_55_60", "X4_65_Curve", "X4_55_Blade", _
+                            "X4_70S", "X4_75S", "X4_55_938", "X4_65_938")
     arrBurningMode = Array("White Pattern", "Color Bar", "Color Square")
 
     For i = 0 To 10
@@ -425,7 +425,7 @@ Private Sub Form_Load()
     For i = 0 To 1
         Combo2D3D.AddItem arrDimension(i)
     Next i
-    For i = 0 To 7
+    For i = 0 To 9
         ComboPanel.AddItem arrPanelModel(i)
     Next i
     

@@ -3,9 +3,9 @@
 	<common baud="115200" id="6"/>
 	<MonitorProductModel>10</MonitorProductModel>
 	<MonitorBacklightType>1</MonitorBacklightType>
-	<MonitorBoardModel>4</MonitorBoardModel>
-	<MonitorHardwareVersion>1</MonitorHardwareVersion>
+	<MonitorBoardModel>7</MonitorBoardModel>
+	<MonitorHardwareVersion>3</MonitorHardwareVersion>
 	<Monitor2D3DModel>1</Monitor2D3DModel>
-	<MonitorPanelModel>6</MonitorPanelModel>
+	<MonitorPanelModel>10</MonitorPanelModel>
 	<BurningMode enable="True"></BurningMode>
 </config>
