@@ -381,6 +381,8 @@ On Error GoTo ErrExit
         RebootMonitor
     End If
     DelayMS 2000
+    
+    MsgBox "PASS", vbOKOnly
     Exit Sub
 
 ErrExit:
