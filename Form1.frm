@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "MSCOMM32.OCX"
+Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "mscomm32.ocx"
 Begin VB.Form Form1 
    Caption         =   "Letv Max65  Ù–‘…’¬ºπ§æﬂ"
    ClientHeight    =   5175
@@ -319,7 +319,7 @@ On Error GoTo ErrExit
 
     clsSaveConfigData.ComBaud = CStr(glngTVComBaud)
     clsSaveConfigData.ComID = gintTVComID
-    For i = 0 To 10
+    For i = 0 To 13
         If Trim(ComboProduct.Text) = Trim(arrProductModel(i)) Then
             clsSaveConfigData.ProductModel = i
             gintProductModel = i
@@ -354,7 +354,7 @@ On Error GoTo ErrExit
             Exit For
         End If
     Next i
-    For i = 0 To 9
+    For i = 0 To 12
         If Trim(ComboPanel.Text) = Trim(arrPanelModel(i)) Then
             clsSaveConfigData.PanelModel = i + 1
             gintPanelModel = i + 1
@@ -379,8 +379,8 @@ On Error GoTo ErrExit
     If gintBurningModeEnable = 1 Then
         BurningMode 1
         RebootMonitor
+        DelayMS 2000
     End If
-    DelayMS 2000
     
     MsgBox "PASS", vbOKOnly
     Exit Sub
@@ -399,8 +399,8 @@ Private Sub Form_Load()
 
     arrProductModel = Array("UNKNOWN", "Max4_70", "Max4_65C", _
                             "Max4_55B", "Max4_65B", "Max4_75B", _
-                            "Max4_70S", "Max4_75S", "Max5_55_938", _
-                            "Max4_X70", "Max5_65_938")
+                            "Max4_70S", "Max4_75S", "Max455", _
+                            "Max4_X70", "Max465", "U55", "U65", "U75")
     arrBacklightType = Array("PWM", "Local Dimming")
     arrBoradModel = Array("EVT", "EVT2", "EVT3", _
                         "DVT", "DVT2", "DVT3", _
@@ -409,10 +409,11 @@ Private Sub Form_Load()
     arrDimension = Array("2D", "3D")
     arrPanelModel = Array("X4_70_2D", "X4_70_3D", "X3_55_120", _
                             "X3_55_60", "X4_65_Curve", "X4_55_Blade", _
-                            "X4_70S", "X4_75S", "X4_55_938", "X4_65_938")
+                            "X4_70S", "X4_75S", "X4_55", "X4_65", _
+                            "UNQ_55", "UNQ_65", "UNQ_75")
     arrBurningMode = Array("White Pattern", "Color Bar", "Color Square")
 
-    For i = 0 To 10
+    For i = 0 To 13
         ComboProduct.AddItem arrProductModel(i)
     Next i
     For i = 0 To 1
@@ -427,7 +428,7 @@ Private Sub Form_Load()
     For i = 0 To 1
         Combo2D3D.AddItem arrDimension(i)
     Next i
-    For i = 0 To 9
+    For i = 0 To 12
         ComboPanel.AddItem arrPanelModel(i)
     Next i
     
@@ -435,13 +436,13 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-On Error GoTo ErrExit
+    On Error GoTo ErrExit
     If MSComm1.PortOpen = True Then
         MSComm1.PortOpen = False
     End If
 
     End
-Exit Sub
+    Exit Sub
 
 ErrExit:
     MsgBox Err.Description, vbCritical, Err.Source
